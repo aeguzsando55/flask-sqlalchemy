@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+    <div class="row">
+
+        <div class="col-md-5">
+            {% include 'partials/_message.html' %}
+            {% include 'partials/_contactForm.html' %}
+        </div>
+
+        <div class="col-md-7">
+                {% for contact in contacts %} <!--Lists the contacts objects-->
+                <!-- Calls each object 'contact' from list contacts -->
+                <div class="card mb-1 text-white bg-dark">
+                    <div class="card-body">
+                    <div class="d-flex justify-content-beetween">
+                        <h5>{{contact.fullname}}</h3> <!-- Calls the 'fullname' attribute -->
+                        <div>
+                            <!-- Instead a new page uses the decorator function from blueprint 'contacts' -->
+                            <a href="{{ url_for('contacts.update', id=contact.id) }}" class="btn bg-black  
+                            text-white btn-sm rounded-0">Update</a> 
+                            <!-- An additional parameter (id) is necessary to validate the a SQL sentence
+                                to delete or update the specific row. 
+                                NOTE: the parameter is the attribute 'id' of the object contact -->
+                            <a href="{{ url_for('contacts.delete', id=contact.id) }}" class="btn btn-danger 
+                            btn-sm rounded-0">Delete</a>
+                        </div>
+                    </div>  
+                        <p>{{contact.email}}</p> <!-- Calls the 'email' attribute -->
+                        <p>{{contact.phone}}</p> <!-- Calls the 'phone' attribute -->
+                    </div>
+                </div>
+                {% endfor %} <!-- End of the 'for' cycle -->
+        </div>
+    </div>
+
+{% endblock %}
